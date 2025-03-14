@@ -70,8 +70,15 @@ x.x.x.x db.example.com db1
 x.x.x.x sbc.example.com sbc1
 x.x.x.x media.example.com media1
 ```
+## 2. Install With A Script (OPTION 1)
 
-## 2. Installing Required Packages
+Run the script directly from the GitHub Repo
+
+```bash
+curl -s https://raw.githubusercontent.com/kazoo-classic/kazoo/main/install_kazoo_classic.sh | sudo bash
+```
+
+## 2. Installing Required Packages (OPTION 2)
 
 ### Download Kazoo Packages
 
@@ -82,10 +89,10 @@ It is recommended to build from source or download the latest release from https
 mkdir -p /opt/rpm_installs
 
 # Download the packages from GitHub
-wget -P /opt/rpm_installs https://github.com/kazoo-classic/kazoo/releases/download/v4.3-1-alpha/erlang-otp-19.3-1.el8.x86_64.rpm
+wget -P /opt/rpm_installs https://github.com/kazoo-classic/kazoo/releases/download/v4.3-1-alpha/erlang-otp-19.3-2.el8.x86_64.rpm
 wget -P /opt/rpm_installs https://github.com/kazoo-classic/kazoo/releases/download/v4.3-1-alpha/rebar-2.6.4-1.el8.x86_64.rpm
 wget -P /opt/rpm_installs https://github.com/kazoo-classic/kazoo/releases/download/v4.3-1-alpha/elixir-1.5.3-1.el8.x86_64.rpm
-wget -P /opt/rpm_installs https://github.com/kazoo-classic/kazoo/releases/download/v4.3-1-alpha/kazoo-classic-4.3-1.el8.x86_64.rpm
+wget -P /opt/rpm_installs https://github.com/kazoo-classic/kazoo/releases/download/v4.3-1-alpha/kazoo-classic-4.3-2.el8.x86_64.rpm
 ```
 
 ### Install Packages in Order
@@ -93,11 +100,13 @@ wget -P /opt/rpm_installs https://github.com/kazoo-classic/kazoo/releases/downlo
 This example uses --nodeps to bypass a mistake made during the build of this release. It won't be needed in newer releases.
 
 ```bash
+# Install EPEL to solve dependencies
+sudo dnf install -y epel-release 
 # Install the packages in the correct order
-sudo rpm -i /opt/rpm_installs/erlang-otp-19.3-1.el8.x86_64.rpm --nodeps
-sudo rpm -i /opt/rpm_installs/rebar-2.6.4-1.el8.x86_64.rpm --nodeps
-sudo rpm -i /opt/rpm_installs/elixir-1.5.3-1.el8.x86_64.rpm --nodeps
-sudo rpm -i /opt/rpm_installs/kazoo-classic-4.3-1.el8.x86_64.rpm --nodeps
+sudo dnf install -y /opt/rpm_installs/erlang-otp-19.3-2.el8.x86_64.rpm
+sudo dnf install -y /opt/rpm_installs/rebar-2.6.4-1.el8.x86_64.rpm
+sudo dnf install -y /opt/rpm_installs/elixir-1.5.3-1.el8.x86_64.rpm
+sudo dnf install -y /opt/rpm_installs/kazoo-classic-4.3-2.el8.x86_64.rpm
 ```
 
 ## 3. Setting Up Container Runtime (for RabbitMQ)
