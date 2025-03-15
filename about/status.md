@@ -74,7 +74,7 @@ We have many contributors on the discord channel. Additional users will be added
 - **Kazoo 4.4** is experimenting with custom FreeSWITCH builds that support Erlang OTP24+ and a revised `mod_kazoo` or a change to `mod_amqp`.
 
 **Ongoing Tasks & Known Issues**  
-- **`mod_kazoo`**:  
+- **mod_kazoo**:  
   - Must remain compatible with older messaging patterns if you’re on 4.3.  
   - For 4.4, community forks like [`kageds/freeswitch`](https://github.com/kageds/freeswitch/tree/v1.10-OTP24) are in testing.  
 - **Installation**:  
