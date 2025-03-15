@@ -76,18 +76,21 @@ We have many contributors on the discord channel. Additional users will be added
 **Ongoing Tasks & Known Issues**  
 - **mod_kazoo**:  
   - Must remain compatible with older messaging patterns if you’re on 4.3.  
-  - For 4.4, community forks like [`kageds/freeswitch`](https://github.com/kageds/freeswitch/tree/v1.10-OTP24) are in testing.  
+  - For 4.4, community forks like [`kageds/freeswitch`](https://github.com/kageds/freeswitch/tree/v1.10-OTP24) are suggested for testing.
 - **Installation**:  
-  - Debian 11: Recommended for FreeSWITCH **1.10.9**. Packages from signalwire require a Personal Access Token.
-  - Rocky/Alma 9: Target for newer versions of FreeSWITCH, but requires work on `mod_kazoo`/`mod_amqp` to avoid AMQP crashes.
+  - Debian 11: Recommended for FreeSWITCH **1.10.9**.
+  - Packages from signalwire require a Personal Access Token.
+- **Rocky/Alma 9**:
+  - Target for newer versions of FreeSWITCH
+  - Requires work on `mod_kazoo`/`mod_amqp` to avoid AMQP crashes.
 
 **Help Needed**  
 - Debugging potential memory or event-framing issues in `mod_kazoo` for OTP24.
 - Port/Conversion to `mod_amqp`.
 
 **Active Development**  
-- [`mooseable`](https://github.com/mooseable): Testing stable 1.10.9 with 4.3
-- [`are`]: Work on `mod_kazoo` and custom patches for OTP24
+- [`@mooseable`](https://github.com/mooseable): Testing stable 1.10.9 with 4.3
+- [`@are`]: Work on `mod_kazoo` and custom patches for OTP24
 
 ### 3. Kazoo Core
 
@@ -99,7 +102,7 @@ We have many contributors on the discord channel. Additional users will be added
 
 **ACDC (Call Queues)**  
 - **sipengines Fork**: A popular choice containing major call-center bugfixes and features (e.g., ring_all strategy).  
-- **Federation / Multi-Zone**: Community members like `are` mention a more robust ACDC that supports federation across zones. Reliability in multi-zone setups is an active area of testing.
+- **Federation / Multi-Zone**: Community members like `@are` mention a more robust ACDC that supports federation across zones. Reliability in multi-zone setups is an active area of testing.
 
 ## Contributing
 
