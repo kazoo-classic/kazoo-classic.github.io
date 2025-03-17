@@ -24,7 +24,7 @@ This also includes changing Kamailio to use PostgreSQL instead of KazooDB (which
 
 ### Stage 2 - Kazoo Classic 4.3.X - Add STIR/SHAKEN support
 ---
-To comply with the US market, STIR/SHAKEN support will be added.
+To comply with the US FCC regulations, STIR/SHAKEN support will be added.
 
 ### Stage 3 - Kazoo Classic 4.4 - Erlang and Dependency Updates / Bugfixing
 ---
