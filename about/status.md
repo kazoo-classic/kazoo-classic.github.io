@@ -6,7 +6,7 @@ nav_order: 2
 
 # Kazoo-Classic Development Status
 
-***Last Update: `15/03/2025`***
+***Last Update: `17/03/2025`***
 
 Welcome to our ongoing efforts to **maintain** and **modernize** [Kazoo](https://github.com/2600hz/kazoo), a robust, open-source telephony platform leveraging FreeSWITCH, Kamailio, CouchDB, and others.
 
