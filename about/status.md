@@ -67,25 +67,25 @@ We have many contributors on the discord channel. Additional users will be added
 
 ### https://github.com/kageds
 Especially the Erlang Updates in;
-- https://github.com/kageds/kazoo_core
-- https://github.com/kageds/kazoo_applications
+- [https://github.com/kageds/kazoo_core](https://github.com/kageds/kazoo_core)
+- [https://github.com/kageds/kazoo_applications](https://github.com/kageds/kazoo_applications)
 
 And his Kamailio Postgres updates in
-- https://github.com/kageds/kazoo-configs-kamailio/tree/4.3-postgres
+- [https://github.com/kageds/kazoo-configs-kamailio/tree/4.3-postgres](https://github.com/kageds/kazoo-configs-kamailio/tree/4.3-postgres)
 
 ### https://github.com/ruhnet
 Updates to callflows (forked from OpenTelecom)
-- https://github.com/ruhnet/monster-ui-callflows-ng
+- [https://github.com/ruhnet/monster-ui-callflows-ng](https://github.com/ruhnet/monster-ui-callflows-ng)
 
 ### https://github.com/mooseable
 Work on adding additional security filters
-- https://github.com/mooseable/kazoo-configs-kamailio/tree/4.3-postgres-extrafilters
+- [https://github.com/mooseable/kazoo-configs-kamailio/tree/4.3-postgres-extrafilters](https://github.com/mooseable/kazoo-configs-kamailio/tree/4.3-postgres-extrafilters)
 
 Kazoo Binary Build Process for Alma/RHEL8
-- https://github.com/kazoo-classic/kazoo
+- [https://github.com/kazoo-classic/kazoo](https://github.com/kazoo-classic/kazoo)
 
 Monster-UI build process through docker
-- https://github.com/mooseable/monster-ui/tree/4.3-dockerbuild
+- [https://github.com/mooseable/monster-ui/tree/4.3-dockerbuild](https://github.com/mooseable/monster-ui/tree/4.3-dockerbuild)
 
 ## Help Desired
 - Though a labour of love, any funding would be appreciated when we are ready to take them
