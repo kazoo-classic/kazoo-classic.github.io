@@ -4,105 +4,83 @@ layout: default
 nav_order: 2
 ---
 
-# Kazoo Development Status
+# Kazoo-Classic Development Status
 
 ***Last Update: `15/03/2025`***
 
-Welcome to our ongoing efforts to **maintain** and **modernize** [Kazoo](https://github.com/2600hz/kazoo), a robust, open-source telephony platform leveraging FreeSWITCH, Kamailio, CouchDB, and others. This page details active tasks on two primary branches:
+Welcome to our ongoing efforts to **maintain** and **modernize** [Kazoo](https://github.com/2600hz/kazoo), a robust, open-source telephony platform leveraging FreeSWITCH, Kamailio, CouchDB, and others.
 
-1. [**Kazoo 4.3** (“classic”)](https://github.com/kazoo-classic): Stability on newer operating systems while preserving existing dependencies.  
-2. **Kazoo 4.4**: Introducing updated frameworks and dependencies (Erlang OTP24+, newer FreeSWITCH, Kamailio, etc.).
+## Planned Stages
 
-Whether you’re running a production cluster or exploring new features, we welcome contributions of all kinds. 
+As to not spread ourselves too thin, we will approach development in the following stages.
+
+### Stage 1 - Kazoo Classic 4.3 - Alma/Rocky 8 Build & Packages
+---
+As it has been shown that the existing code base for all components can with little to no modification can run on Alma/Rocky/RHEL8 or Debain 11, the first step is to have a release that works that doesn't rely on the EOL'd Centos 7.
+
+Therefore, apart from compatibility fixes, the first step is to work on building binaries and releasing a repository for RHEL8, specifically Alma Linux and associated metapackages to allow distributed or all-in-one installs.
+
+This also includes changing Kamailio to use PostgreSQL instead of KazooDB (which is closed-source) for presence, watcher lists, and carrier allow listing.
+
+### Stage 2 - Kazoo Classic 4.3.X - Add STIR/SHAKEN support
+---
+To comply with the US market, STIR/SHAKEN support will be added.
+
+### Stage 3 - Kazoo Classic 4.4 - Erlang and Dependency Updates / Bugfixing
+---
+Getting things on a current operating system is only the first step. Kazoo runs on Erlang 19, which reached EOL in 2019 and doesn't support later OpenSSL versions. Work has already begun by other talented individuals to move the codebase towards Erlang OTP 24 and 26.
+
+Testing and review of this work will begin in ernest once stage 1 is completed.
+
+Several known bugs such as the SSO login, T.38 bugs, and potentially the queue system (ACDC) will be targeted to be fixed.
+
+### Stage 4 - Kazoo Classic 4.5 - Technology Changes, Feature Adds
+---
+Components like the mod_kazoo freeswitch module will be replaced with mod_amqp, mod_kazoo had its purpose when it was developed, but mod_amqp has its own benefits.
+
+Additional modules or guides will be created to handle things like email-to-fax security, DKIM signing system notifications, frontend updates.
+
+As CouchDB (the database Kazoo runs on) clusters well over lan, but poorly over wan, and HTTP replication of couchdb can become overloaded at large scale, middlware or a custom service will need to be developed for better inter-region replication.
+
+### Stage 5 - TBD
+
+Nothing to add at this stage, though it will likely be continuing to maintain and adding more modules and functionality, potentially adding integrations to popular platforms, reworking the billing modules/etc.
+
+We may look into an open-source kazoo based softphone with updated push notifications.
+
 
 ## Current Contributors
 
-We have many contributors on the discord channel. Additional users will be added below as the efforts become more coordinated.
+We have many contributors on the discord channel. Additional users will be added below as the efforts become more coordinated. The current notable works that are moving this project towards completion can be found here.
 
-### @1935
+### https://github.com/kageds
+Especially the Erlang Updates in;
+- https://github.com/kageds/kazoo_core
+- https://github.com/kageds/kazoo_applications
 
-**Proficiencies** 
-- Erlang
-- Elixir
-- PostgreSQL
-- Kamailio
+And his Kamailio Postgres updates in
+- https://github.com/kageds/kazoo-configs-kamailio/tree/4.3-postgres
 
-### @Mooseable
+### https://github.com/ruhnet
+Updates to callflows (forked from OpenTelecom)
+- https://github.com/ruhnet/monster-ui-callflows-ng
 
-**Proficiencies** 
-- RPM Packaging
-- Erlang (Basic)
-- Kamailio
-- PHP
+### https://github.com/mooseable
+Work on adding additional security filters
+- https://github.com/mooseable/kazoo-configs-kamailio/tree/4.3-postgres-extrafilters
 
-**Active On**
-- Deploying current 4.3 changes
-- Developing Ansible Playbooks for Deployment / Testing
+Kazoo Binary Build Process for Alma/RHEL8
+- https://github.com/kazoo-classic/kazoo
 
-### @are
+Monster-UI build process through docker
+- https://github.com/mooseable/monster-ui/tree/4.3-dockerbuild
 
-**Proficiencies** 
-- Erlang
-
-**Active On**
-- Updating to Erlang OTP v24
-- Freeswitch mod_amqp conversion
-
-
-
-## Key Areas of Work
-
-### 1. Kamailio
-
-**Version Targets**  
-- **Kamailio v5.5.x** to v5.8.x on modern distros (Debian 11/12, Rocky/Alma 9).
-
-**Ongoing Tasks**  
-- **Database Change to PostgreSQL**  
-  The project prefers PostgreSQL over KazooDB/MySQL for subscriber data. KazooDB is not opensource and has performance issues. This was made possible by the fantasic work of `@are`
-- **Push Notifications & Presence**  
-  Some code improvements for push notifications are in progress. Real-time presence is generally stable. Warnings/errors generated by the switch to PostgreSQL have been resolved with updates to the configuration by `@mooseable`
-
-**Help Needed**  
-- If you have expertise in Kamailio 5.8.x or advanced SIP routing, your PRs for updated role configs or improved module scripting would be valuable.  
-- Implementation of STIR/SHAKEN is a priority.
-
-### 2. FreeSWITCH
-
-**Version Targets**  
-- **Kazoo 4.3** is stable with FreeSWITCH **1.10.9**. Higher versions (1.10.10+) can cause ecallmgr or legacy AMQP crashes.  
-- **Kazoo 4.4** is experimenting with custom FreeSWITCH builds that support Erlang OTP24+ and a revised `mod_kazoo` or a change to `mod_amqp`.
-
-**Ongoing Tasks & Known Issues**  
-- **mod_kazoo**:  
-  - Must remain compatible with older messaging patterns if you’re on 4.3.  
-  - For 4.4, community forks like [`kageds/freeswitch`](https://github.com/kageds/freeswitch/tree/v1.10-OTP24) are suggested for testing.
-- **Installation**:  
-  - Debian 11: Recommended for FreeSWITCH **1.10.9**.
-  - Packages from signalwire require a Personal Access Token.
-- **Rocky/Alma 9**:
-  - Target for newer versions of FreeSWITCH
-  - Requires work on `mod_kazoo`/`mod_amqp` to avoid AMQP crashes.
-
-**Help Needed**  
-- Debugging potential memory or event-framing issues in `mod_kazoo` for OTP24.
-- Port/Conversion to `mod_amqp`.
-
-**Active Development**  
-- [`@mooseable`](https://github.com/mooseable): Testing stable 1.10.9 with 4.3
-- [`@are`]: Work on `mod_kazoo` and custom patches for OTP24
-
-### 3. Kazoo Core
-
-**Kazoo**  
-- **RHEL8 binaries**: Binaries have been compiled to work with Erlang OTP-19 on Rocky/Alma 8.
-- **Erlang Version**: Work is focused on updating the version of erlang and the ssl versioning.
-
-### 4. Kazoo-Applications Modules
-
-**ACDC (Call Queues)**  
-- **sipengines Fork**: A popular choice containing major call-center bugfixes and features (e.g., ring_all strategy).  
-- **Federation / Multi-Zone**: Community members like `@are` mention a more robust ACDC that supports federation across zones. Reliability in multi-zone setups is an active area of testing.
+## Help Desired
+- Though a labour of love, any funding would be appreciated when we are ready to take them
+- Building RPM packages
+- Erlang, Elixir, Rebar, Node/JS developers
+- Experience in configuring Kamailio Routing
+- Testers, especially those with infrastructure
 
 ## Contributing
 
