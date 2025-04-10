@@ -27,14 +27,14 @@ Current versions and operating systems that have been successfully tested.
 🛜  Freeswitch [Version: 1.10.9] [OS: Debian 11] \
 ☑️ Running and working. Anything later than 1.10.9 fails to work with legacy messaging from kazoo-applications on the AMQP bus and crashes freeswitch.  Requires a signalwire personal access token to access the repo
 
-🔐  Kamailio [Version: 5.5.7] [OS: Debian 11] \
-☑️ Running and with a phone registered. Requires use of PostgreSQL instead of KazooDB. Config exists thanks to a fork from ruhnet. Added another fork for additional security filtering.
+🔐  Kamailio [Version: 5.5.7] [OS: Debian 11/RHEL8/RHEL9] \
+☑️ Running and with a phone registered. Requires use of PostgreSQL instead of KazooDB. Config exists thanks to a fork from kageds. Added another fork for additional security filtering.
 
 ⚙️  Kazoo-Applications [Version: 4.3 with OTP 19.3] [OS: Alma Linux 8] \
-☑️ Running and working. Requires separate RabbitMQ node/docker image. 
+☑️ Running and working. Requires separate RabbitMQ node/docker image.
 
 🐇  RabbitMQ  [Version: 3.13.7] [OS: Docker] \
-☑️ No notes other than its best to be run inside a docker container on the same node as your kazoo-applications node.
+☑️ No notes other than it needs to be run inside a docker container if it's on the same node as your kazoo-applications node.
 
 👾  Monster-UI [Version: 4.3] [OS: Alma Linux 9] \
 ☑️ Working. Compiles via a docker image. Published the code in a separate branch.

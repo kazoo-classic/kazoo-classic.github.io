@@ -20,10 +20,12 @@ The Kamailio SBC acts as the entry point for SIP traffic in a Kazoo platform. It
 
 ## Prerequisites
 
-- Debian/Ubuntu system (Debian 11 Bullseye recommended)
+- Debian/Ubuntu system (Debian 11 Bullseye recommended), or RHEL 8/9 (Almalinux, Rocky Linux, etc.)
 - Basic understanding of SIP, PostgreSQL, and Kazoo
 
 ## 1. PostgreSQL Installation
+
+#### Debian:
 
 ```bash
 # Add PostgreSQL repository
@@ -34,6 +36,13 @@ echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" 
 apt update
 apt install -y postgresql-13 postgresql-client-13 postgresql-contrib-13 \
     python3-psycopg2 postgresql-server-dev-13
+```
+
+#### RHEL:
+
+```bash
+dnf module enable postgresql:13
+dnf install postgresql-server
 ```
 
 ## 2. PostgreSQL Configuration
@@ -54,11 +63,19 @@ host    all             all             127.0.0.1/32            password
 
 Configure main PostgreSQL settings:
 
+#### Debian:
+
 ```bash
 nano /etc/postgresql/13/main/postgresql.conf
 ```
 
-Key settings to update:
+#### RHEL:
+
+```bash
+nano /var/lib/pgsql/data/pg_hba.conf
+```
+
+### Key settings to update:
 
 ```conf
 # Basic settings
@@ -85,6 +102,8 @@ systemctl restart postgresql@13-main
 
 ### Add Kamailio Repository
 
+#### Debian:
+
 ```bash
 apt-key add https://deb.kamailio.org/kamailiodebkey.gpg
 echo "deb http://deb.kamailio.org/kamailio55 bullseye main" > /etc/apt/sources.list.d/kamailio.list
@@ -92,7 +111,26 @@ echo "deb-src http://deb.kamailio.org/kamailio55 bullseye main" >> /etc/apt/sour
 apt update
 ```
 
+#### RHEL:
+
+Add the repository:
+
+```bash
+yum config-manager --add-repo https://rpm.kamailio.org/centos/kamailio.repo
+```
+
+Enable the correct version repo:
+
+```bash
+nano /etc/yum.repos.d/kamailio.repo
+```
+
+Disable the "latest" repo by setting it to `enabled=0`.
+Enable the `5.5.7` repo by setting `enabled=1`.
+
 ### Install Kamailio Packages
+
+#### Debian:
 
 ```bash
 apt install -y kamailio kamailio-postgres-modules kamailio-kazoo-modules \
@@ -101,18 +139,21 @@ apt install -y kamailio kamailio-postgres-modules kamailio-kazoo-modules \
     kamailio-xmpp-modules
 ```
 
+#### RHEL:
+
+(All these Kamailio modules aren't strictly necessary, but they don't take up much space and you may want to use some later for custom scenarios.)
+
+```bash
+dnf install kamailio kamailio-auth-ephemeral kamailio-auth-xkeys kamailio-carrierroute kamailio-cnxcc kamailio-cpl kamailio-crypto kamailio-debugsource kamailio-dialplan kamailio-dmq_userloc kamailio-evapi kamailio-gzcompress kamailio-http_async_client kamailio-http_client kamailio-ims kamailio-jansson kamailio-json kamailio-kazoo kamailio-lcr kamailio-ldap kamailio-lost kamailio-lua kamailio-lwsc kamailio-outbound kamailio-perl kamailio-phonenum kamailio-postgresql kamailio-presence kamailio-python kamailio-rabbitmq kamailio-regex kamailio-rtjson kamailio-ruby kamailio-sctp kamailio-secfilter kamailio-sipcapture-daemon-config kamailio-sipdump kamailio-sipjson kamailio-snmpstats kamailio-sqlang kamailio-sqlite kamailio-statsd kamailio-tcpops kamailio-tls kamailio-unixodbc kamailio-utils kamailio-uuid kamailio-websocket kamailio-xhttp-pi kamailio-xmlops kamailio-xmlrpc kamailio-xmpp
+```
+
 ## 4. Database Setup for Kamailio
 
-Create kamailio database and user: 
+Create kamailio database and user:
 ```bash
 sudo -u postgres psql -c "CREATE DATABASE kamailio;"
 sudo -u postgres psql -c "CREATE USER kamailio WITH PASSWORD 'your_secure_password';"
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE kamailio TO kamailio;"
-```
-
-Create the initial table structure:
-```
-psql -U kamailio -d postgres://kamailio:kamailio@127.0.0.1/kamailio -f /etc/kazoo/kamailio/db_scripts/kamailio_initdb_postgres.sql
 ```
 
 ## 5. Kazoo Configuration
@@ -142,6 +183,8 @@ sudo -u postgres psql -U kamailio -d postgres://kamailio:your_secure_password@12
 
 Create/edit the Kamailio system config:
 
+#### Debian:
+
 ```bash
 nano /etc/default/kamailio
 ```
@@ -156,6 +199,26 @@ DUMP_CORE=no
 CFGFILE=/etc/kazoo/kamailio/kamailio.cfg
 ```
 
+#### RHEL:
+
+```bash
+nano /lib/systemd/system/kamailio.service
+```
+Change this line:
+```
+Environment='CFGFILE=/etc/kamailio/kamailio.cfg'
+```
+to this:
+```
+Environment='CFGFILE=/etc/kazoo/kamailio/kamailio.cfg'
+```
+
+Reload the systemd service file:
+
+```bash
+systemctl daemon-reload
+```
+
 ### Create Local Configuration
 
 Edit the local configuration file for Kamailio:
@@ -163,6 +226,8 @@ Edit the local configuration file for Kamailio:
 ```bash
 nano /etc/kazoo/kamailio/local.cfg
 ```
+
+Uncomment the roles you want to enable near the top of the file.
 
 Set your server information:
 
