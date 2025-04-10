@@ -11,7 +11,7 @@ This is a community supported hard-fork of 2600hz's Kazoo, from version 4.3 as t
 
 The community has put efforts in to support Kazoo v4.3 on later, in-support operating systems, and add additional functionality.
 
-If you would like to contribute to the maintenance or improvement of Kazoo-Classic, you can join our Discord or by forking any of our repositories at https://github.com/kazoo-classic/ and submitting a pull request.
+If you would like to contribute to the maintenance or improvement of Kazoo-Classic, you can join our Discord or by forking any of our repositories at [https://github.com/kazoo-classic/](https://github.com/kazoo-classic/) and submitting a pull request.
 
 If you would like to contribute to this documentation or add guides, please fork https://github.com/kazoo-classic/kazoo-classic.github.io, make your changes then submit a Pull Request.
 
